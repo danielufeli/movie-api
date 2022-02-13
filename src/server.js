@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { authFactory, AuthError } = require("./auth");
+const authCheck = require("./helpers/authCheck")
 
 const PORT = 3000;
 const { JWT_SECRET } = process.env;
@@ -13,6 +14,10 @@ const auth = authFactory(JWT_SECRET);
 const app = express();
 
 app.use(bodyParser.json());
+
+app.post("/movie", authCheck, (req, res, next) => {
+  console.log(req.user);
+});
 
 app.post("/auth", (req, res, next) => {
   if (!req.body) {
