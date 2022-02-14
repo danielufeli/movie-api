@@ -55,6 +55,6 @@ jobs:
           mongoURI: ${{ secrets.MONGO_DB_URI }}
       
       - run: |
-         git config user.name "daniel ufeli" && git config user.email "danielufeli@gmail.com"
-         git remote add heroku-dev git@heroku.com:movie-api-dan.git
+         git config user.name "daniel ufeli" && git config user.email "danielufeli@yahoo.com"
+         heroku git:remote -a movie-api-dan
          git push heroku-dev HEAD:dev
