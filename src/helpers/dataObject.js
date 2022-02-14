@@ -6,9 +6,6 @@ const fetchMovie = async (title) => {
     .get(`http://www.omdbapi.com/?apikey=f6e48e33&t=${title}`)
     .then((res) => {
       return res.data;
-    })
-    .catch((error) => {
-      return res.status(500).json(error);
     });
   return movie;
 };
@@ -49,4 +46,5 @@ const getMovies = async (req) => {
 module.exports = {
   newMovie,
   getMovies,
+  fetchMovie,
 };

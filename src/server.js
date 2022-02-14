@@ -45,22 +45,18 @@ app.post(
   }
 );
 
-app.get(
-  '/movie',
-  authCheck,
-  async (req, res, next) => {
-    try {
-      const { status, data } = await getMovies(req);
-      if (status === 'false') {
-        return res.status(400).json({ error: data });
-      } else {
-        return res.status(status).json(data);
-      }
-    } catch (error) {
-      return res.status(500).json({ error: 'internal server error' });
+app.get('/movie', authCheck, async (req, res, next) => {
+  try {
+    const { status, data } = await getMovies(req);
+    if (status === 'false') {
+      return res.status(400).json({ error: data });
+    } else {
+      return res.status(status).json(data);
     }
+  } catch (error) {
+    return res.status(500).json({ error: 'internal server error' });
   }
-);
+});
 
 app.post('/auth', (req, res, next) => {
   if (!req.body) {
