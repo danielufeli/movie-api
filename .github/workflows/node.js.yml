@@ -42,7 +42,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: movie-api-dan
           heroku_email: "danielufeli@gmail.com"
-          usedocker: true
+          usedocker: false
           justlogin: true
           docker_build_args: |
             NODE_ENV
@@ -55,7 +55,7 @@ jobs:
           mongoURI: ${{ secrets.MONGO_DB_URI }}
       
       - name: "Login to heroku registry"
-        run: heroku auth:login
+        run: heroku container:login
 
       - name: "Build and push to heroku registry"
         run: heroku container:push web --app movie-api-dan
