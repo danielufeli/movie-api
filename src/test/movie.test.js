@@ -15,7 +15,7 @@ let falseReq = {
 describe('/movie', () => {
   beforeAll((done) => {
     mongoose.connect(
-     ` ${mongoURI}`,
+     mongoURI,
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => done()
     );
