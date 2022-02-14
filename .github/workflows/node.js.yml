@@ -39,7 +39,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
-          docker_heroku_process_type: web
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: movie-api-dan
           heroku_email: "danielufeli@gmail.com"
@@ -56,7 +55,7 @@ jobs:
           mongoURI: ${{ secrets.MONGO_DB_URI }}
       
       - name: "Login to heroku registry"
-        run: heroku container:login
+        run: heroku auth:login
 
       - name: "Build and push to heroku registry"
         run: heroku container:push web --app movie-api-dan
