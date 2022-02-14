@@ -10,17 +10,19 @@ on:
     branches: [ dev ]
 
 env:
-  mongoURI: ${{secrets.MONGODBURI}}
+  mongoURI: ${{ secrets.MONGO_DB_URI }}
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: 
+      name: development
+      url: https://github.com
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
