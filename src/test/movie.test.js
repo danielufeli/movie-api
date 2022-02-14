@@ -14,7 +14,7 @@ let falseReq = {
 describe('/movie', () => {
   beforeAll((done) => {
     mongoose.connect(
-      'mongodb+srv://danino:Domi2022@cluster0.5plrn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      `${ secrets.MONGODBURI }`,
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => done()
     );
