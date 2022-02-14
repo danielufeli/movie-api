@@ -13,7 +13,7 @@ const checkMovie = require('./middlewares/checkMovie');
 const restrictBasicUser = require('./middlewares/restrictBasicUser');
 const swaggerSpec = require('./config/swagger-doc');
 
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 const { JWT_SECRET, mongoURI } = process.env;
 
 if (!JWT_SECRET) {
