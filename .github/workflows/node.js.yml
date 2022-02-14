@@ -56,7 +56,7 @@ jobs:
           mongoURI: ${{ secrets.MONGO_DB_URI }}
       
       - name: "Login to heroku registry"
-        run: heroku login
+        run: heroku container:login
 
       - name: "Build and push to heroku registry"
         run: heroku container:push web --app movie-api-dan
