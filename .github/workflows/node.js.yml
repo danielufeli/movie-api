@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: development
-      url: https://github.com
+      url: https://movie-api-dan.herokuapp.com
     strategy:
       matrix:
         node-version: [14.x]
