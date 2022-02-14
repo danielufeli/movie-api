@@ -10,7 +10,7 @@ on:
     branches: [ dev ]
 
 env:
-  mongoURI: ${{ secrets.MONGO_DB_URI }}
+  mongoURI: ${secrets.MONGO_DB_URI}
 
 jobs:
   build:
