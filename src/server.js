@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 const { authFactory, AuthError } = require('./helpers/auth');
 const connectDB = require('./helpers/db');
 const authCheck = require('./helpers/authCheck');
@@ -10,6 +11,7 @@ const {
 } = require('./middlewares/validateinputs');
 const checkMovie = require('./middlewares/checkMovie');
 const restrictBasicUser = require('./middlewares/restrictBasicUser');
+const swaggerSpec = require('./config/swagger-doc');
 
 const PORT = 3000;
 const { JWT_SECRET, mongoURI } = process.env;
@@ -24,13 +26,15 @@ connectDB();
 
 app.use(bodyParser.json());
 
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.post(
   '/movie',
   authCheck,
   movieValidationRules(),
   validate,
-  restrictBasicUser,
   checkMovie,
+  restrictBasicUser,
   async (req, res, next) => {
     try {
       const { status, data } = await newMovie(req);

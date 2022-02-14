@@ -1,8 +1,6 @@
-// const app = require('../server');
-const connectDB = require('../helpers/db');
+const mongoose = require('mongoose');
 const { fetchMovie, getMovies, newMovie } = require('../helpers/dataObject');
 
-connectDB();
 let req = {
   body: { title: 'Fast and Furious' },
   user: { userId: 434 },
@@ -14,6 +12,20 @@ let falseReq = {
 };
 
 describe('/movie', () => {
+  beforeAll((done) => {
+    mongoose.connect(
+      'mongodb+srv://danino:Domi2022@cluster0.5plrn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
+      { useNewUrlParser: true, useUnifiedTopology: true },
+      () => done()
+    );
+  });
+
+  afterAll((done) => {
+    mongoose.connection.db.dropDatabase(() => {
+      mongoose.connection.close(() => done());
+    });
+  });
+
   describe('/movie', () => {
     it('should return movie from Api', async () => {
       const fetch = await fetchMovie('Fast and Furious');
@@ -32,8 +44,8 @@ describe('/movie', () => {
       expect(movies.status).toBe(200);
     });
     it('should return false if no movie found', async () => {
-     const movies = await getMovies(falseReq);
-     expect(movies.status).toBe('false');
+      const movies = await getMovies(falseReq);
+      expect(movies.status).toBe('false');
     });
   });
 
@@ -44,7 +56,7 @@ describe('/movie', () => {
     });
     it('should return false if a  wrong movie title is entered', async () => {
       const movies = await newMovie(falseReq);
-      expect(movies.status).toBe("false");
+      expect(movies.status).toBe('false');
     });
   });
 });

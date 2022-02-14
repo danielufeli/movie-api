@@ -1,0 +1,37 @@
+paths:
+  /auth:
+    post:
+      tags:
+        - auth
+      summary: Signs in a new user
+      description: A user can sign in to Movie Api
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: auth
+          description: user sign in
+          schema:
+            $ref: '#/definitions/auth'
+      responses:
+        200:
+          description: User signed in
+        400:
+          description: invalid payload
+        500:
+          description: Internal server error
+definitions:
+  auth:
+    type: object
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+        example: premium-jim
+      password:
+        type: string
+        example: GBLtTyq3E_UNjFnpo9m6

@@ -1,0 +1,53 @@
+paths:
+  /movie:
+    post:
+      tags:
+        - create a movie
+      summary: Create a movie by entering a title
+      description: Create a movie by entering a title
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: movie
+          description: new movie to be created
+          schema:
+            $ref: "#/definitions/movie"
+      responses:
+        201:
+          description: Movie Created Successfully
+        400:
+          description: Bad request
+        401:
+          description: No token, authorization denied
+        500:
+          description: Internal server error
+    get:
+      tags:
+        - Get all movies
+      summary: View all users movies
+      description: User can see all movies created
+      security:
+        - bearerAuth: []
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Successfully get all movies
+        400:
+          description: Bad request
+        401:
+          description: Invalid token or missing token
+        500:
+          description: Internal server error
+definitions:
+  movie:
+    type: object
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        example: The Transporter
