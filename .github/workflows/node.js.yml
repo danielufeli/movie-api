@@ -42,7 +42,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: movie-api-dan
           heroku_email: "danielufeli@gmail.com"
-          usedocker: false
+          usedocker: true
           justlogin: true
           docker_build_args: |
             NODE_ENV
@@ -54,11 +54,7 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           mongoURI: ${{ secrets.MONGO_DB_URI }}
       
-      - name: "Login to heroku registry"
-        run: heroku container:login
-
-      - name: "Build and push to heroku registry"
-        run: heroku container:push web --app movie-api-dan
-
-      - name: "Releases the container"
-        run: heroku container:release web --app movie-api-dan
+      - run: |
+         git config user.name "daniel ufeli" && git config user.email "danielufeli@yahoo.com"
+         git remote add heroku-dev git@heroku.com:movie-api-dan.git
+         git push heroku-dev HEAD:dev
