@@ -1,28 +1,61 @@
-# Node.js recruitment task
-
 [![Node.js CI](https://github.com/danielufeli/movie-api/actions/workflows/node.js.yml/badge.svg)](https://github.com/danielufeli/movie-api/actions/workflows/node.js.yml)
 
-We'd like you to build a simple Movie API. It should provide two endpoints:
+# Simple Movie API
 
-1. `POST /movies`
-   1. Allows creating a movie object based on movie title passed in the request body
-   2. Based on the title additional movie details should be fetched from
-      https://omdbapi.com/ and saved to the database. Data we would like you to
-      fetch from OMDb API:
-   ```
-     Title: string
-     Released: date
-     Genre: string
-     Director: string
-   ```
-   3. Only authorized users can create a movie.
-   4. `Basic` users are restricted to create 5 movies per month (calendar
-      month). `Premium` users have no limits.
-1. `GET /movies`
-   1. Should fetch a list of all movies created by an authorized user.
+A simple Movie API
 
-⚠️ Don't forget to verify user's authorization token before processing the
-request. The token should be passed in request's `Authorization` header.
+
+## Built With
+
+- JavaScript
+- NodeJs
+- MongoDB
+- Docker
+
+
+## Swagger Documentation
+API endpoints Documentation URL - https://movie-api-dan.herokuapp.com/docs/
+
+## API Information
+API endpoints URL - https://movie-api-dan.herokuapp.com/
+
+|METHOD  |DESCRIPTION                             |ENDPOINT                                  |
+|------- |----------------------------------------|------------------------------------------|
+|POST    |Sign In                                 |auth                                      |
+|POST    |Create a Movie                          |movie                                     |
+|GET     |Get all Movies                          |movie                                     |
+
+___
+### Sample Users
+1. `Basic` user
+
+```
+ username: 'basic-thomas'
+ password: 'sR-_pcoow-27-6PAwCD8'
+```
+
+1. `Premium` user
+
+```
+username: 'premium-jim'
+password: 'GBLtTyq3E_UNjFnpo9m6'
+```
+
+___
+
+## Running Locally
+
+Make sure you have [Node.js](http://nodejs.org/) 14.0.0 installed and [POSTMAN](https://www.getpostman.com/downloads/).
+
+```sh
+git clone git@github.com:danielufeli/movie-api.git
+cd movie-api
+npm install
+npm start
+```
+
+The app should now be running on [localhost:3000](http://localhost:3000/).
+___
 
 ```
 Authorization: Bearer <token>
@@ -37,10 +70,10 @@ Auth service code is located under `./src` directory
 
 You need to have `docker` and `docker-compose` installed on your computer to run the service
 
-## Run locally
+## Run locally with docker
 
 1. Clone this repository
-1. Run from root dir
+2. Run from root dir
 
 ```
 JWT_SECRET=secret docker-compose up -d
@@ -61,87 +94,34 @@ docker-compose down
 
 ## JWT Secret
 
-To generate tokens in auth service you need to provide env variable
-`JWT_SECRET`. It should be a string value. You should use the same secret in
-the API you're building to verify the JWT tokens.
+To generate tokens in auth service you need to provide env variable `JWT_SECRET`. 
 
-## Users
+## MongoDb URI
 
-The auth service defines two user accounts that you should use
+To connect to mongodb you need to provide env variable `mongodbURI`.
 
-1. `Basic` user
+## Author
 
-```
- username: 'basic-thomas'
- password: 'sR-_pcoow-27-6PAwCD8'
-```
+👤 **Daniel Ufeli**
 
-1. `Premium` user
+- GitHub: [@danielufeli](https://github.com/danielufeli)
+- Twitter: [@danielufeli](https://twitter.com/danielufeli)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/danielcode)
 
-```
-username: 'premium-jim'
-password: 'GBLtTyq3E_UNjFnpo9m6'
-```
+## 🤝 Contributing
 
-## Token payload
+Contributions, issues, and feature requests are welcome!
 
-Decoding the auth token will give you access to basic information about the
-user, including its role.
+Feel free to check the [issues page](../../issues/).
 
-```
-{
-  "userId": 123,
-  "name": "Basic Thomas",
-  "role": "basic",
-  "iat": 1606221838,
-  "exp": 1606223638,
-  "iss": "https://www.netguru.com/",
-  "sub": "123"
-}
-```
+## Show your support
 
-## Example request
+Give a ⭐️ if you like this project!
 
-To authorize user call the auth service using for example `curl`. We assume
-that the auth service is running of the default port `3000`.
+## Acknowledgments
 
-Request
+- Appreciation to the Netguru Team
 
-```
-curl --location --request POST '0.0.0.0:3000/auth' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username": "basic-thomas",
-    "password": "sR-_pcoow-27-6PAwCD8"
-}'
-```
+## 📝 License
 
-Response
-
-```
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTYwNjIyMTgzOCwiZXhwIjoxNjA2MjIzNjM4LCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.KjZ3zZM1lZa1SB8U-W65oQApSiC70ePdkQ7LbAhpUQg"
-}
-```
-
-## Rules
-
-- Database and framework choice are on your side.
-- Your API has to be dockerized. Create `Dockerfile` and `docker-compose` and document the process of running it locally.
-- Provided solution should consist of two microservices.
-  - `Authentication Service` - provided by us to auth users
-  - `Movies Service` - created by you to handle movies data
-- Test your code.
-- Provide documentation of your API.
-- Application should be pushed to the public git repository and should have a
-  working CI/CD pipeline that runs the tests. For example you can use GitHub
-  Actions or CircleCI. Create a sample PR to show us the working CI/CD pipeline.
-
-## What will be evaluated?
-
-- Task completeness
-- Architecture
-- Code quality
-- Tests quality
-- Database design
-- Technology stack
+This project is [MIT](./MIT.md) licensed.
