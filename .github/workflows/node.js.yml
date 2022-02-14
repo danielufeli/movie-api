@@ -40,14 +40,25 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "movie-api-dan"
+          heroku_app_name: movie-api-dan
           heroku_email: "danielufeli@gmail.com"
           usedocker: true
+          justlogin: true
           docker_build_args: |
             NODE_ENV
             SECRET_KEY
             mongoURI
+
         env:
           NODE_ENV: development
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           mongoURI: ${{ secrets.MONGO_DB_URI }}
+      
+      - name: "Login to heroku registry"
+        run: heroku container:login
+
+      - name: "Build and push to heroku registry"
+        run: heroku container:push web --app email-service-web
+
+      - name: "Releases the container"
+        run: heroku container:release web --app email-service-web
