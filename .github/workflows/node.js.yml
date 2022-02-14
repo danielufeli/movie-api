@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: [ dev ]
 
+env:
+  mongoURI: "mongodb+srv://danino:Domi2022@cluster0.5plrn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+
 jobs:
   build:
 
