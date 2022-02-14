@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { fetchMovie, getMovies, newMovie } = require('../helpers/dataObject');
+const { mongoURI } = process.env;
 
 let req = {
   body: { title: 'Fast and Furious' },
@@ -14,7 +15,7 @@ let falseReq = {
 describe('/movie', () => {
   beforeAll((done) => {
     mongoose.connect(
-      `${ secrets.MONGODBURI }`,
+      `${mongoURI}`,
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => done()
     );
