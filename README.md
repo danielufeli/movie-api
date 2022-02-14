@@ -1,5 +1,7 @@
 # Node.js recruitment task
 
+[![Node.js CI](https://github.com/danielufeli/movie-api/actions/workflows/node.js.yml/badge.svg)](https://github.com/danielufeli/movie-api/actions/workflows/node.js.yml)
+
 We'd like you to build a simple Movie API. It should provide two endpoints:
 
 1. `POST /movies`
