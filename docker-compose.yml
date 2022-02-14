@@ -12,3 +12,4 @@ services:
       - .:/app/
     environment:
       JWT_SECRET: ${JWT_SECRET}
+      mongoURI: ${MONGO_DB_URI}
